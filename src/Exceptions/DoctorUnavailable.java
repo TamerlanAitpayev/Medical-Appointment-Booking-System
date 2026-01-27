@@ -1,7 +1,8 @@
 package Exceptions;
 
 public class DoctorUnavailable extends RuntimeException {
-    public DoctorUnavailable(String message) {
-        super(message);
+    public DoctorUnavailable() {
+        super("Doctor not found");
     }
+    public DoctorUnavailable(String message) {super (message);}
 }
