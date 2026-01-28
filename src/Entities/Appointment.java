@@ -9,7 +9,8 @@ public class Appointment {
     private Timestamp appointmentTime;
     private String status;
 
-    public Appointment() {}
+    public Appointment() {
+    }
 
     public Appointment(int id, int patientId, int doctorId, String status, Timestamp appointmentTime) {
         this.id = id;
@@ -20,22 +21,43 @@ public class Appointment {
     }
 
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getPatientId() { return patientId; }
-    public void setPatientId(int patientId) { this.patientId = patientId; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getDoctorId() { return doctorId; }
-    public void setDoctorId(int doctorId) { this.doctorId = doctorId; }
+    public int getPatientId() {
+        return patientId;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
 
-    public Timestamp getAppointmentTime() { return appointmentTime; }
-    public void setAppointmentTime(Timestamp timestamp) { this.appointmentTime = timestamp; }
-<<<<<<< HEAD
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Timestamp getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(Timestamp timestamp) {
+        this.appointmentTime = timestamp;
+    }
 }
-=======
-}
->>>>>>> 62e48312dd74b6f968f6561b4c802ee3546a9e4d

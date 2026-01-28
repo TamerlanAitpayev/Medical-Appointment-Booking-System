@@ -13,30 +13,17 @@ public class Patient {
 
     public Patient() {}
 
-    public Patient(int age, String name, String lastname, String gender, double weight, double height, int id, String email, String PhoneNumber){
-<<<<<<< HEAD
-    this.name=name;
-    this.lastname=lastname;
-    this.gender=gender;
-    this.weight=weight;
-    this.height=height;
-    this.id=id;
-    this.email=email;
-    this.age=age;
-    this.phoneNumber=PhoneNumber;
-}
-=======
-        this.name=name;
-        this.lastname=lastname;
-        this.gender=gender;
-        this.weight=weight;
-        this.height=height;
-        this.id=id;
-        this.email=email;
-        this.age=age;
-        this.phoneNumber=PhoneNumber;
+    public Patient(int age, String name, String lastname, String gender, double weight, double height, int id, String email, String PhoneNumber) {
+        this.name = name;
+        this.lastname = lastname;
+        this.gender = gender;
+        this.weight = weight;
+        this.height = height;
+        this.id = id;
+        this.email = email;
+        this.age = age;
+        this.phoneNumber = PhoneNumber;
     }
->>>>>>> 62e48312dd74b6f968f6561b4c802ee3546a9e4d
     public int getId() {return id;}
     public void setId(int id){this.id=id;}
 
@@ -63,8 +50,5 @@ public class Patient {
 
     public String getPhoneNumber() {return phoneNumber;}
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 62e48312dd74b6f968f6561b4c802ee3546a9e4d
+
