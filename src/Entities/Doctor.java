@@ -25,4 +25,8 @@ public class Doctor {
 
     public String getName() {return name;}
     public void setName(String name) {this.name=name;}
+<<<<<<< HEAD
     }
+=======
+}
+>>>>>>> 62e48312dd74b6f968f6561b4c802ee3546a9e4d

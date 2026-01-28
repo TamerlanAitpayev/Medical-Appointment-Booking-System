@@ -34,4 +34,8 @@ public class Appointment {
 
     public Timestamp getAppointmentTime() { return appointmentTime; }
     public void setAppointmentTime(Timestamp timestamp) { this.appointmentTime = timestamp; }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 62e48312dd74b6f968f6561b4c802ee3546a9e4d
