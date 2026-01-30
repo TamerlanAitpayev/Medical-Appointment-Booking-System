@@ -6,11 +6,12 @@ import Repositories.implementations.PatientRepositoryImpl;
 import Service.AppointmentService;
 import Service.DoctorService;
 import Service.PatientService;
-
+import edu.aitu.oop3.db.DatabaseInitializer;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        DatabaseInitializer.initDatabase();
         PatientRepositoryImpl patientRepo = new PatientRepositoryImpl();
         DoctorRepositoryImpl doctorRepo = new DoctorRepositoryImpl();
         AppointmentRepositoryImpl appRepo = new AppointmentRepositoryImpl();
