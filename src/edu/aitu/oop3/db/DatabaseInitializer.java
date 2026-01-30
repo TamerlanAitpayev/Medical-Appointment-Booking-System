@@ -45,6 +45,7 @@ public class DatabaseInitializer {
 
         } catch (SQLException e) {
             System.err.println("Error creating tables: " + e.getMessage());
+
         }
     }
 }
