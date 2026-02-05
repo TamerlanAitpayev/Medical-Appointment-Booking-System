@@ -1,6 +1,7 @@
 package Service;
 
 import Entities.Appointment;
+import Exceptions.AppointmentNotFound;
 import Repositories.AppointmentRepository;
 import java.sql.Timestamp;
 
@@ -19,7 +20,7 @@ public class AppointmentService {
         app.setAppointmentTime(appointmentTime);
         app.setStatus("Scheduled");
         if (app.getAppointmentTime().before(new Timestamp(System.currentTimeMillis()))) {
-            throw new RuntimeException("Cannot schedule in the past!");
+            throw new AppointmentNotFound("Cannot schedule in the past!");
         }
 
         appointmentRepository.add(app);
