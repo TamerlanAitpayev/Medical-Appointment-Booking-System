@@ -13,17 +13,26 @@ public class AppointmentService {
     }
 
     public void scheduleAppointment(int patientId, int doctorId, String timeStr) {
-        Appointment app = new Appointment();
-        app.setPatientId(patientId);
-        app.setDoctorId(doctorId);
-        Timestamp appointmentTime = Timestamp.valueOf(timeStr);
-        app.setAppointmentTime(appointmentTime);
-        app.setStatus("Scheduled");
-        if (app.getAppointmentTime().before(new Timestamp(System.currentTimeMillis()))) {
-            throw new AppointmentNotFound("Cannot schedule in the past!");
-        }
+        try {
+            Timestamp appointmentTime = Timestamp.valueOf(timeStr);
+            if (appointmentTime.before(new Timestamp(System.currentTimeMillis()))) {
+                throw new AppointmentNotFound("Cannot schedule in the past!");
+            }
 
-        appointmentRepository.add(app);
-        System.out.println("Appointment saved successfully!");
+            Appointment app = new Appointment();
+            app.setPatientId(patientId);
+            app.setDoctorId(doctorId);
+            app.setAppointmentTime(appointmentTime);
+            app.setStatus("Scheduled");
+
+            appointmentRepository.add(app);
+            System.out.println("Appointment saved successfully!");
+        } catch (IllegalArgumentException e) {
+            throw new AppointmentNotFound("Invalid time format. Use YYYY-MM-DD HH:MM:SS");
+        }
+    }
+
+    public void showAllAppointments() {
+        appointmentRepository.findAllDetailed();
     }
 }

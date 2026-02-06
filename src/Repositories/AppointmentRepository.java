@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface AppointmentRepository {
  void add(Appointment appointment);
+ void findAllDetailed();
 }
