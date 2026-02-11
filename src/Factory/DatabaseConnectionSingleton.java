@@ -7,8 +7,6 @@ import java.sql.SQLException;
 public class DatabaseConnectionSingleton {
 
     private static Connection connection;
-
-    // private constructor
     private DatabaseConnectionSingleton() {}
 
     public static Connection getInstance() {
