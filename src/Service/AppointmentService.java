@@ -12,7 +12,7 @@ public class AppointmentService {
         this.appointmentRepository = repo;
     }
 
-    public void scheduleAppointment(int patientId, int doctorId, String timeStr) {
+    public Appointment scheduleAppointment(int patientId, int doctorId, String timeStr) {
         try {
             Timestamp appointmentTime = Timestamp.valueOf(timeStr);
             if (appointmentTime.before(new Timestamp(System.currentTimeMillis()))) {
@@ -27,6 +27,7 @@ public class AppointmentService {
 
             appointmentRepository.add(app);
             System.out.println("Appointment saved successfully!");
+            return app;
         } catch (IllegalArgumentException e) {
             throw new AppointmentNotFound("Invalid time format. Use YYYY-MM-DD HH:MM:SS");
         }

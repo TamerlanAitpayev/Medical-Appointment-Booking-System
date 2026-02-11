@@ -8,6 +8,7 @@ public class Appointment {
     private int doctorId;
     private Timestamp appointmentTime;
     private String status;
+    private String type;
 
     public Appointment() {
     }
@@ -18,6 +19,15 @@ public class Appointment {
         this.doctorId = doctorId;
         this.status = status;
         this.appointmentTime = appointmentTime;
+    }
+
+    public Appointment(int id, int patientId, int doctorId, String status, Timestamp appointmentTime, String type) {
+        this.id = id;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.status = status;
+        this.appointmentTime = appointmentTime;
+        this.type = type;
     }
 
 
@@ -60,4 +70,13 @@ public class Appointment {
     public void setAppointmentTime(Timestamp timestamp) {
         this.appointmentTime = timestamp;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
+

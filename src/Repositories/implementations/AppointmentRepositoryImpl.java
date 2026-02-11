@@ -2,11 +2,7 @@ package Repositories.implementations;
 
 import Entities.Appointment;
 import Repositories.AppointmentRepository;
-import Repositories.DoctorRepository;
 import edu.aitu.oop3.db.DatabaseConnection;
-import org.checkerframework.checker.units.qual.A;
-
-import javax.swing.plaf.SpinnerUI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -1,7 +1,10 @@
+import Components.BillingComponent;
+import Components.NotificationComponent;
+import Components.PatientRecordsComponent;
+import Components.SchedulingComponent;
 import Entities.*;
 import Repositories.implementations.*;
 import Service.*;
-import Utils.Result;
 import edu.aitu.oop3.db.DatabaseInitializer;
 import Config.ClinicConfig;
 import java.util.Scanner;
@@ -19,6 +22,11 @@ public class Main {
         PatientService patientService = new PatientService(patientRepo);
         DoctorService doctorService = new DoctorService(doctorRepo);
         AppointmentService appointmentService = new AppointmentService(appRepo);
+
+        SchedulingComponent schedulingComponent = new SchedulingComponent(appointmentService);
+        PatientRecordsComponent patientRecordsComponent = new PatientRecordsComponent(patientService, patientRepo);
+        BillingComponent billingComponent = new BillingComponent();
+        NotificationComponent notificationComponent = new NotificationComponent();
 
         Scanner sc = new Scanner(System.in);
 
@@ -57,7 +65,7 @@ public class Main {
                         System.out.print("Height: "); p.setHeight(Double.parseDouble(sc.nextLine()));
                         System.out.print("Email: "); p.setEmail(sc.nextLine());
                         System.out.print("Phone: "); p.setPhoneNumber(sc.nextLine());
-                        patientService.RegisterPatient(p);
+                        patientRecordsComponent.register(p);
                         break;
 
                     case 3:
@@ -74,7 +82,7 @@ public class Main {
                     case 4:
                         System.out.print("Enter Patient ID: ");
                         int patId = Integer.parseInt(sc.nextLine());
-                        Patient foundPat = patientRepo.getById(patId);
+                        Patient foundPat = patientRecordsComponent.findById(patId);
                         if (foundPat != null) {
                             System.out.println("Found: " + foundPat.getName() + " " + foundPat.getLastName());
                         } else {
@@ -89,7 +97,7 @@ public class Main {
 
                     case 6:
                         System.out.print("Enter Patient ID to delete: ");
-                        patientRepo.deleteById(Integer.parseInt(sc.nextLine()));
+                        patientRecordsComponent.deleteById(Integer.parseInt(sc.nextLine()));
                         break;
 
                     case 7:
@@ -101,7 +109,7 @@ public class Main {
                         String typeStr = sc.nextLine();
                         AppointmentType type = AppointmentFactory.createAppointment(typeStr);
 
-                        appointmentService.scheduleAppointment(pid, did, timeStr);
+                        Appointment createdAppointment = schedulingComponent.schedule(pid, did, timeStr, type);
 
                         AppointmentSummary summary = new AppointmentSummary.Builder()
                                 .setPatient("ID: " + pid)
@@ -110,12 +118,15 @@ public class Main {
                                 .setNotes("Type: " + type.getDetails())
                                 .build();
 
+                        notificationComponent.sendBookingConfirmation(createdAppointment);
+                        System.out.println(billingComponent.createInvoice(createdAppointment));
+
                         System.out.println("\n--- Appointment Summary ---");
                         System.out.println(summary.toString());
                         break;
 
                     case 8:
-                        appointmentService.showAllAppointments();
+                        schedulingComponent.showAllAppointments();
                         break;
 
                     case 0:
