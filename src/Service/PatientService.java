@@ -22,4 +22,17 @@ public class PatientService {
         patientRepo.add(p);
         return Result.success(p);
     }
+    public void findPatient(int id) {
+        Patient patient = patientRepo.getById(id);
+        if (patient != null) {
+            System.out.println("Found: " + patient.getName());
+        } else {
+            System.out.println("Patient with ID " + id + " not found.");
+        }
+    }
+
+    public void deletePatient(int id) {
+        patientRepo.deleteById(id);
+        System.out.println("Patient with ID " + id + " deleted.");
+    }
 }

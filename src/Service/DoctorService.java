@@ -23,4 +23,17 @@ public class DoctorService {
         doctorRepository.add(doctor);
         System.out.println("Doctor " + doctor.getName() + " added to the system.");
     }
+    public void findDoctor(int id) {
+        Doctor doctor = doctorRepository.getById(id);
+        if (doctor != null) {
+            System.out.println("Found: " + doctor.getName() + " (" + doctor.getSpecialization() + ")");
+        } else {
+            System.out.println("Doctor with ID " + id + " not found.");
+        }
+    }
+
+    public void deleteDoctor(int id) {
+        doctorRepository.deleteById(id);
+        System.out.println("Doctor with ID " + id + " deleted.");
+    }
 }

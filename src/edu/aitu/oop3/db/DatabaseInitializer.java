@@ -13,9 +13,6 @@ public class DatabaseInitializer {
                         "  name VARCHAR(100) NOT NULL, " +
                         "  lastname VARCHAR(100) NOT NULL, " +
                         "  age INT, " +
-                        "  gender VARCHAR(10), " +
-                        "  weight DECIMAL(5, 2), " +
-                        "  height DECIMAL(5, 2), " +
                         "  email VARCHAR(150) UNIQUE, " +
                         "  phone_number VARCHAR(20) NOT NULL" +
                         ");" +

@@ -6,6 +6,7 @@ import edu.aitu.oop3.db.DatabaseInitializer;
 import Config.ClinicConfig;
 import Components.Billing.BillingComponent;
 import Components.Notifications.NotificationComponent;
+import Factory.AppointmentFactory;
 import java.util.Scanner;
 
 public class Main {
@@ -30,7 +31,16 @@ public class Main {
             System.out.println("\n--- " + config.getClinicName().toUpperCase() + " ---");
             System.out.println("1. Register Doctor\n2. Register Patient\n3. Find Doctor\n4. Find Patient\n5. Delete Doctor\n6. Delete Patient\n7. Book Appointment\n8. Show All\n0. Exit");
             System.out.print("Select: ");
-            int choice = Integer.parseInt(sc.nextLine());
+
+            String input = sc.nextLine();
+            if (input.isEmpty()) continue;
+            int choice;
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input.");
+                continue;
+            }
 
             try {
                 switch (choice) {
@@ -42,41 +52,47 @@ public class Main {
                         doctorService.RegisterDoctor(d);
                         break;
                     case 2:
-                        Patient p = new Patient();
-                        System.out.print("First Name: "); p.setName(sc.nextLine());
-                        System.out.print("Last Name: "); p.setLastName(sc.nextLine());
-                        System.out.print("Age: "); p.setAge(Integer.parseInt(sc.nextLine()));
-                        System.out.print("Email: "); p.setEmail(sc.nextLine());
-                        Result<Patient> res = patientService.RegisterPatient(p);
-                        if (res.isSuccess()) System.out.println("Success: " + res.getData().getName());
-                        else System.out.println("Error: " + res.getMessage());
+                        System.out.print("First Name: "); String fname = sc.nextLine();
+                        System.out.print("Last Name: "); String lname = sc.nextLine();
+                        System.out.print("Age: "); int age = Integer.parseInt(sc.nextLine());
+                        System.out.print("Email: "); String email = sc.nextLine();
+                        System.out.print("Phone: "); String phone = sc.nextLine();
+                        Patient p = new Patient(fname, lname, age, email, phone);
+                        patientService.RegisterPatient(p);
+                        break;
+                    case 3:
+                        System.out.print("Enter Doctor ID: ");
+                        int docId = Integer.parseInt(sc.nextLine());
+                        doctorService.findDoctor(docId);
+                        break;
+                    case 4:
+                        System.out.print("Enter Patient ID: ");
+                        int patId = Integer.parseInt(sc.nextLine());
+                        patientService.findPatient(patId);
+                        break;
+                    case 5:
+                        System.out.print("Enter Doctor ID to delete: ");
+                        doctorService.deleteDoctor(Integer.parseInt(sc.nextLine()));
+                        break;
+                    case 6:
+                        System.out.print("Enter Patient ID to delete: ");
+                        patientService.deletePatient(Integer.parseInt(sc.nextLine()));
                         break;
                     case 7:
                         System.out.print("Patient ID: "); int pid = Integer.parseInt(sc.nextLine());
                         System.out.print("Doctor ID: "); int did = Integer.parseInt(sc.nextLine());
-                        System.out.print("Time: "); String timeStr = sc.nextLine();
-                        System.out.print("Type (online/person): "); String typeStr = sc.nextLine();
-
-                        AppointmentType type = AppointmentFactory.createAppointment(typeStr);
+                        System.out.print("Time (YYYY-MM-DD HH:MM:SS): "); String timeStr = sc.nextLine();
                         appointmentService.scheduleAppointment(pid, did, timeStr);
-
-                        AppointmentSummary summary = new AppointmentSummary.Builder()
-                                .setPatient("ID: " + pid).setDoctor("ID: " + did)
-                                .setDate(timeStr).setNotes(type.getDetails()).build();
-
-                        Appointment temp = new Appointment();
-                        temp.setPatientId(pid); temp.setDoctorId(did);
-
-                        System.out.println(summary.toString());
-                        System.out.println(billing.createInvoice(temp, typeStr));
-                        notifier.send("Confirmed for Patient " + pid);
                         break;
                     case 8:
+                        System.out.println("\n--- ALL APPOINTMENTS ---");
                         appointmentService.showAllAppointments();
                         break;
                     case 0:
                         return;
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please enter a valid ID number, not text!");
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
